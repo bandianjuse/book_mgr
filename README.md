@@ -4,7 +4,7 @@
 
 ## 构建步骤
 
-```
+```bash
 # 进入项目根目录，打开db文件夹，将book_mgr.sql 导入到mysql数据库并修改 confing.js 配置文件。
 module.exports = {
   port: 99, //端口
