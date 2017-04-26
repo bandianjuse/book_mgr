@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" tab="3">
+<head>
+    <meta charset="UTF-8">
+    <title><%=title%></title>
+    <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/iconfont/iconfont.css">
+    <link rel="stylesheet" href="/css/user.css">
+</head>
+<body>
+    <% include header %>
+    <section class="top">
+        <div class="user-box">
+            <div class="user-name">
+                <h1><%=username%></h1>
+                <a href="javascript:void(0)" class="user-edit"  data-toggle="modal" data-target="#editUserModal"><i class="iconfont">&#xe601;</i> 修改信息</a>
+            </div>
+        </div>
+    </section>
+    <section class="main">
+        <h2 class="title">我借阅的图书</h2>
+        <% if(lendList.length){ %>
+        <div class="user-table">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>图书</th>
+                    <th>借阅日期</th>
+                    <th>归还日期</th>
+                    <th>状态</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% lendList.forEach(function(list){ %>
+                <tr>
+                    <td>
+                        <a href="/details/1/<%=list.book_id%>"><%=list.book_title%></a>
+                    </td>
+                    <td><%=list.lend_time%></td>
+                    <td><%=list.revert_time || ""%></td>
+                    <td>
+                        <% if(list.book_status == 1){ %>
+                        <span class="text-success">借阅成功，待归还</span>
+                        <% }else if(list.book_status == 2){ %>
+                        <span style="color:#999;">已归还</span>
+                        <% }else{ %>
+                        <span class="text-primary">借阅中，待取书</span>
+                        <% }%>
+                    </td>
+                </tr>
+                <% }) %>
+                </tbody>
+            </table>
+        </div>
+        <% }else{ %>
+        <div class="no-info">您还没有借阅过书籍！ <a href="/">去借书</a></div>
+        <% } %>
+
+        <h2 class="title">我的申请采购</h2>
+        <% if(applyList.length){ %>
+        <div class="user-table">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>图书</th>
+                    <th>申请日期</th>
+                    <th>采购数量</th>
+                    <th>结果</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% applyList.forEach(function(list){ %>
+                <tr>
+                    <td>
+                        <a href="/details/3/<%=list.book_id%>"><%=list.book_title%></a>
+                    </td>
+                    <td><%=list.apply_time%></td>
+                    <td><%=list.book_count%></td>
+                    <td>
+                        <% if(list.apply_status == 1){ %>
+                        <span class="text-success">申请通过</span>
+                        <% }else if(list.apply_status == 2){ %>
+                        <span class="text-danger">申请失败</span>
+                        <% }else{ %>
+                        <span class="text-primary">审批中,请耐心等待</span>
+                        <% }%>
+
+                    </td>
+                </tr>
+                <% }) %>
+                </tbody>
+            </table>
+        </div>
+        <% }else{ %>
+        <div class="no-info">您还没有申请过采购！ <a href="/procurement">去申请</a></div>
+        <% } %>
+
+        <h2 class="title">我分享的图书</h2>
+        <% if(shareList.length){ %>
+        <div class="user-table">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>图书</th>
+                    <th style="width:180px">分享日期</th>
+                    <th style="width:550px">分享理由</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% shareList.forEach(function(list){ %>
+                <tr>
+                    <td>
+                        <a href="/details/2/<%=list.book_id%>"><%=list.book_title%></a>
+                    </td>
+                    <td><%=list.share_tiem%></td>
+                    <td data-toggle="tooltip" data-placement="top"  title="<%=list.reason%>"><%
+                            var str = list.reason;
+                            if(str.length > 30){
+                                str = str.substring(0,30) + "..."
+                            }
+                        %>
+                        <%=str%>
+                    </td>
+                </tr>
+                <% }) %>
+                </tbody>
+            </table>
+        </div>
+        <% }else{ %>
+        <div class="no-info">您还没有分享过图书！ <a href="/share">去分享</a> </div>
+        <% } %>
+
+    </section>
+
+    <% include footer %>
+
+    <!-- 修改信息模态框 -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">修改信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="initPassword" class="col-sm-3 form-control-label text-right">原始密码：</label>
+                            <div class="col-sm-5">
+                                <input type="password" class="form-control" id="initPassword" placeholder="请输入原始密码">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="editPassword" class="col-sm-3 form-control-label text-right">新的密码：</label>
+                            <div class="col-sm-5">
+                                <input type="password" class="form-control" id="editPassword" placeholder="请输入新的密码">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="editPassword2" class="col-sm-3 form-control-label text-right">确认密码：</label>
+                            <div class="col-sm-5">
+                                <input type="password" class="form-control" id="editPassword2" placeholder="请输入确认密码">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-danger" id="editUserSubmit">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/lib/jquery/jquery.min.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/lib/arttemplate/template.js"></script>
+    <script src="/lib/arttemplate/substring.js"></script>
+    <script src="/js/components.js"></script>
+    <script src="/js/headTab.js"></script>
+    <script src="/js/search.js"></script>
+    <script src="/js/logout.js"></script>
+    <script src="/js/tether.js"></script>
+    <script src="/js/user.js"></script>
+</body>
+</html>

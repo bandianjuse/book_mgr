@@ -1,0 +1,25 @@
+<section class="main js_show" style="display: none">
+    <div class="main-title">
+        搜索到 <span class="num">0</span> 本书
+    </div>
+    <ul class="main-list" id="results"></ul>
+    <div class="page" id="page"></div>
+</section>
+<script id="listData" type="text/html">
+    {{if list.length}}
+    {{each list}}
+    <li class="clearfix">
+        <div class="book-img pull-left">
+            <a href="/details/<%=item%>/{{$value.id}}" class="js-url" ><img src="{{$value.image}}"  /></a>
+        </div>
+        <div class="book-list-right pull-left">
+            <a href="/details/<%=item%>/{{$value.id}}" class="book-title js-url">{{$value.title}}</a>
+            <div class="book-author">作者：{{$value.author}}</div>
+            <p>{{$value.summary | substring : 120}}</p>
+        </div>
+    </li>
+    {{/each}}
+    {{else}}
+    <div>没有查询到书本信息！</div>
+    {{/if}}
+</script>

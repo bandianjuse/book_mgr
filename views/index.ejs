@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" tab="0">
+<head>
+    <meta charset="UTF-8">
+    <title><%=title%></title>
+    <link rel="stylesheet" href="/lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/iconfont/iconfont.css">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+    <% include header %>
+    <section class="top">
+        <div class="search">
+            <div class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="search-input" id="search"  placeholder="输入书名、作者、ISBN号进行搜索">
+                </div>
+                <button type="button" class="btn btn-warning search-submit" id="searchSubmit">搜索</button>
+            </div>
+        </div>
+    </section>
+    <section class="count js_hide">
+        图书馆里共有 <strong><%=countStock.book_count%></strong> 本书，已借出 <strong><%=countStock.book_lend_count%></strong> 本书，剩余 <strong><%=countStock.book_stock%></strong> 本书，共有 <strong><%=countShare%></strong> 个分享。
+    </section>
+    <section class="main js_hide">
+        <h2 class="title">推荐的图书</h2>
+        <ul class="index-list clearfix">
+            <% if(bookRecommend.length){ %>
+            <% bookRecommend.forEach(function(list){ %>
+            <li>
+                <a href="/details/3/<%=list.id%>" class="book-img" data-toggle="tooltip" data-placement="right"  title="<%=list.title%>">
+                    <img style="width:102px;height: 145px;" src="<%=list.image%>" class="img-responsive" />
+                </a>
+            </li>            <% }) %>
+            <%  }else{ %>
+            <li>没有数据！</li>
+            <% } %>
+
+        </ul>
+        <h2 class="title">分享的图书</h2>
+        <ul class="index-list clearfix">
+            <% if(bookShare.length){ %>
+            <% bookShare.forEach(function(list){ %>
+            <li>
+                <a href="/details/2/<%=list.book_id%>" class="book-img" data-toggle="tooltip" data-placement="right"  title="<%=list.book_title%>">
+                    <img style="width:102px;height: 145px;" src="<%=list.image%>" class="img-responsive" />
+                </a>
+            </li>            <% }) %>
+            <%  }else{ %>
+            <li>没有数据！</li>
+            <% } %>
+
+        </ul>
+    </section>
+    <% include bookList %>
+    <% include footer %>
+
+    <script src="/lib/jquery/jquery.min.js"></script>
+    <script src="/lib/bootstrap/tether.min.js"></script>
+    <script src="/lib/bootstrap/bootstrap.min.js"></script>
+    <script src="/lib/arttemplate/template.js"></script>
+    <script src="/lib/arttemplate/substring.js"></script>
+    <script src="/js/components.js"></script>
+    <script src="/js/headTab.js"></script>
+    <script src="/js/page.js"></script>
+    <script src="/js/search.js"></script>
+    <script src="/js/logout.js"></script>
+    <script src="/js/tether.js"></script>
+</body>
+</html>

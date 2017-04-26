@@ -1,0 +1,214 @@
+body {
+  color: #666;
+}
+.layout-width {
+  width: 1000px;
+  margin: 0 auto;
+}
+.font-family {
+  font-family: "微软雅黑";
+}
+.title {
+  font-family: "微软雅黑";
+  font-size: 20px;
+  font-weight: bold;
+}
+.no-info {
+  padding: 20px;
+  font-size: 14px;
+  color: #999;
+}
+/*头部*/
+header {
+  font-family: "微软雅黑";
+  background: #303030;
+  line-height: 50px;
+  color: #f08519;
+}
+header a:link,
+header a:visited {
+  color: #f08519;
+}
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+}
+.head-box {
+  width: 1000px;
+  margin: 0 auto;
+}
+.head-menu {
+  margin-left: 80px;
+}
+.head-menu a {
+  padding-left: 10px;
+  padding-right: 10px;
+  display: inline-block;
+  transition: all .5s;
+}
+.head-menu a:hover {
+  background-color: #000 ;
+  text-decoration: none;
+}
+.head-menu a.active {
+  background-color: #eee ;
+  text-decoration: none;
+  color: #666;
+}
+.head-user {
+  font-size: 14px;
+}
+.head-user a {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+/* 底部*/
+.copyright {
+  width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+  border-top: 1px dashed #ddd;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  font-size: 14px;
+  color: #999;
+}
+/* 搜索*/
+.search {
+  width: 1000px;
+  margin: 0 auto;
+  padding-top: 50px;
+  text-align: center;
+}
+.search-input {
+  outline: none;
+  transition: all .2s;
+  display: block;
+  width: 460px;
+  height: 44px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 0 auto;
+}
+.search-input:focus {
+  border-color: #f08519;
+}
+.search-submit {
+  width: 120px;
+  background-color: #f08519;
+  border: 2px solid #f08519;
+}
+.search-submit:hover {
+  background-color: #f89634;
+  border-color: #f89634;
+}
+.alert {
+  position: fixed;
+  top: 0;
+  text-align: center;
+  width: 100%;
+  z-index: 99999;
+}
+.loading {
+  position: absolute;
+  z-index: 99999;
+  width: 200px;
+  text-align: center;
+}
+.loading .icon {
+  width: 30px;
+  height: 45px;
+  margin: 0 auto;
+  animation: rotate 1s linear infinite;
+  -webkit-animation: rotate 1s linear infinite;
+}
+.loading .icon i {
+  color: #666;
+  display: block;
+  font-size: 30px;
+}
+.loading .text {
+  color: #666;
+  font-size: 16px;
+  padding: 3px;
+}
+.layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 88888;
+  background: #fff;
+  opacity: 0.5;
+}
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  50% {
+    -webkit-transform: rotate(180deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+/*分页*/
+.page {
+  text-align: center;
+}
+.page li a {
+  color: #666;
+  transition: all .25s;
+}
+.page li span {
+  color: #666;
+}
+.page li.active a,
+.page li.active a:focus,
+.page li.active a:hover,
+.page li.active span,
+.page li.active span:focus,
+.page li.active span:hover {
+  background-color: #f08519;
+  border-color: #f08519;
+}
+.top {
+  background: #eee;
+  min-height: 130px;
+}
+.user-box {
+  width: 1000px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+.user-img {
+  margin-right: 20px;
+}
+.user-name h1 {
+  font-size: 38px;
+  font-family: "微软雅黑";
+  margin-bottom: 10px;
+}
+.user-name .user-edit {
+  font-size: 14px;
+}
+.main {
+  width: 1000px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+.main h2 {
+  margin: 20px;
+}
+.user-table {
+  padding: 0 20px 20px 20px;
+}
+.user-table table thead {
+  background-color: #f5f5f5;
+}
+.user-table table td,
+.user-table table th {
+  padding: 8px;
+  vertical-align: middle;
+}

@@ -1,0 +1,18 @@
+<header>
+    <div class="head-box clearfix">
+        <div class="pull-left logo">汇桔图书馆</div>
+        <nav class="pull-left head-menu" id="headMenu">
+            <a href="/">首页</a>
+            <a href="/share">分享图书</a>
+            <a href="/procurement">申请采购</a>
+            <a href="/user">我的图书</a>
+            <% if(role == 1){ %>
+            <a href="/admin">管理</a>
+            <% } %>
+        </nav>
+        <div class="pull-right head-user">
+            <a href="/user">您好：<%=username%></a>
+            <a href="javascript:void(0)" id="logout">退出</a>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,20 @@
+/*分页*/
+.page{
+  text-align: center;
+  li{
+    a{
+      color:#666;
+      transition: all .25s;
+    }
+    span{
+      color:#666;
+    }
+    &.active{
+      a,a:focus,a:hover,span,span:focus,span:hover{
+        background-color:@link-color;
+        border-color : @link-color;
+      }
+    }
+
+  }
+}

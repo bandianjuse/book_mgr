@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" tab="1">
+<head>
+    <meta charset="UTF-8">
+    <title><%=title%></title>
+    <link rel="stylesheet" href="/lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/iconfont/iconfont.css">
+    <link rel="stylesheet" href="/css/user.css">
+</head>
+<body>
+    <% include adminHeader %>
+    <section class="top">
+        <div class="user-box">
+            <div class="user-name">
+                <h1><%=username%></h1>
+                <a href="javascript:void(0)" class="user-edit"  data-toggle="modal" data-target="#editUserModal"><i class="iconfont">&#xe601;</i> 修改信息</a>
+            </div>
+        </div>
+    </section>
+    <section class="main">
+        <h2 class="title">借阅列表</h2>
+        <div class="user-table">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>用户名</th>
+                    <th>图书</th>
+                    <th>借阅日期</th>
+                    <th>归还日期</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="results"></tbody>
+            </table>
+        </div>
+        <div class="page" id="page"></div>
+    </section>
+
+    <% include footer %>
+
+    <!-- 修改信息模态框 -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">修改信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="initPassword" class="col-sm-3 form-control-label text-right">原始密码：</label>
+                            <div class="col-sm-5">
+                                <input type="password" class="form-control" id="initPassword" placeholder="请输入原始密码">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="editPassword" class="col-sm-3 form-control-label text-right">新的密码：</label>
+                            <div class="col-sm-5">
+                                <input type="password" class="form-control" id="editPassword" placeholder="请输入新的密码">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="editPassword2" class="col-sm-3 form-control-label text-right">确认密码：</label>
+                            <div class="col-sm-5">
+                                <input type="password" class="form-control" id="editPassword2" placeholder="请输入确认密码">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-danger" id="editUserSubmit">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script id="listData" type="text/html">
+        {{if list.length}}
+        {{each list}}
+        <tr>
+            <td>{{$value.user_name}}</td>
+            <td> <a href="/details/3/{{$value.book_id}}">{{$value.book_title}}</a></td>
+            <td>{{$value.lend_time}}</td>
+            <td>{{$value.revert_time}}</td>
+            <td>
+                {{if $value.book_status == 1}}
+                待归还
+                {{else if $value.book_status == 2}}
+                已归还
+                {{else if $value.book_status == 3}}
+                拒绝借阅
+                {{else}}
+                借阅申请
+                {{/if}}
+            </td>
+            <td>
+                {{if $value.book_status == 1}}
+                <a href="javascript:void(0)" class="btn btn-primary btn-sm" id="comeBack" data-id="{{$value.id}}" data-bookid="{{$value.book_id}}">已归还</a>
+                {{else if $value.book_status == 0}}
+                <a href="javascript:void(0)" class="btn btn-primary btn-sm" id="agreed" data-id="{{$value.id}}" data-bookid="{{$value.book_id}}">同意</a>
+                <a href="javascript:void(0)" class="btn btn-danger btn-sm" id="refused" data-id="{{$value.id}}" data-bookid="{{$value.book_id}}">拒绝</a>
+                {{else}}
+
+                {{/if}}
+
+            </td>
+        </tr>
+        {{/each}}
+        {{else}}
+        <tr>
+            <td colspan="6" style="text-align: center">没有数据！</td>
+        </tr>
+        {{/if}}
+    </script>
+    <script src="/lib/jquery/jquery.min.js"></script>
+    <script src="/lib/bootstrap/tether.min.js"></script>
+    <script src="/lib/bootstrap/bootstrap.min.js"></script>
+    <script src="/lib/arttemplate/template.js"></script>
+    <script src="/lib/arttemplate/substring.js"></script>
+    <script src="/js/components.js"></script>
+    <script src="/js/headTab.js"></script>
+    <script src="/js/logout.js"></script>
+    <script src="/js/tether.js"></script>
+    <script src="/js/page.js"></script>
+    <script src="/js/user.js"></script>
+    <script src="/js/adminLend.js"></script>
+</body>
+</html>

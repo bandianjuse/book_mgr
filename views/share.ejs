@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" tab="1">
+<head>
+    <meta charset="UTF-8">
+    <title><%=title%></title>
+    <link rel="stylesheet" href="./lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/iconfont/iconfont.css">
+    <link rel="stylesheet" href="./css/share.css">
+</head>
+<body>
+    <% include header %>
+    <section class="top">
+        <div class="search">
+            <div class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="search-input" id="search"  placeholder="输入书的ISBN号进行搜索">
+                </div>
+                <button type="button" class="btn btn-warning search-submit" id="searchSubmit">搜索</button>
+            </div>
+        </div>
+    </section>
+    <section class="instructions js_hide">
+        <p>您可以输入书本背面的ISBN号，共享您喜欢的书籍，让更多的人获益。</p>
+        <p><img src="/images/isbn.jpg" style="width:600px" /> </p>
+    </section>
+    <% include bookList %>
+    <% include footer %>
+
+    <script src="/lib/jquery/jquery.min.js"></script>
+    <script src="/lib/bootstrap/bootstrap.min.js"></script>
+    <script src="/lib/arttemplate/template.js"></script>
+    <script src="/lib/arttemplate/substring.js"></script>
+    <script src="/js/components.js"></script>
+    <script src="/js/headTab.js"></script>
+    <script src="/js/page.js"></script>
+    <script src="/js/logout.js"></script>
+    <script src="/js/search.js"></script>
+    <script src="/js/tether.js"></script>
+</body>
+</html>

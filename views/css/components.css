@@ -1,0 +1,49 @@
+.alert {
+  position: fixed;
+  top: 0;
+  text-align: center;
+  width: 100%;
+  z-index: 99999;
+}
+.loading {
+  position: absolute;
+  z-index: 99999;
+  width: 200px;
+  text-align: center;
+}
+.loading .icon {
+  width: 30px;
+  height: 45px;
+  margin: 0 auto;
+  animation: rotate 1s linear infinite;
+  -webkit-animation: rotate 1s linear infinite;
+}
+.loading .icon i {
+  color: #666;
+  display: block;
+  font-size: 30px;
+}
+.loading .text {
+  color: #666;
+  font-size: 16px;
+  padding: 3px;
+}
+.layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 88888;
+  background: #fff;
+  opacity: 0.5;
+}
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  50% {
+    -webkit-transform: rotate(180deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}

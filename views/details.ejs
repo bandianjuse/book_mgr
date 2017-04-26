@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%=title%></title>
+    <link rel="stylesheet" href="/lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/details.css">
+</head>
+<body>
+    <% include header %>
+    <section class="top">
+        <div class="details-box clearfix">
+            <div class="book-img pull-left">
+                <img src="<%=JSON.parse(bookData.images).large%>"  >
+                <input type="hidden" id="bookId" value="<%=bookData.id%>" />
+            </div>
+            <div class="book-details pull-left">
+                <h2  class="title" id="bookTitle" title="<%=bookData.title %>"><%=bookData.title.substring(0,22) %></h2>
+                <ul class="book-introduction">
+                    <li>作者：<%= bookData.author.substring(0,40) %></li>
+                    <li>页数：<%=bookData.pages%>页</li>
+                    <li>定价：<%=bookData.price%></li>
+                    <li>ISBN：<%=bookData.isbn13%></li>
+                    <li>出版社：<%=bookData.publisher%></li>
+                    <li>出版年：<%=bookData.pubdate%></li>
+                </ul>
+                <% if (item == 2) { %>
+                    <a href="javascript:void(0)" class="btn btn-danger" data-toggle="modal" data-target="#shareModal">我要分享</a>
+                <% }else if(item == 5){ %>
+                    <a href="javascript:void(0)" class="btn btn-danger" data-toggle="modal" data-target="#iventoryModal">图书入库</a>
+                <% }else{ %>
+                    <% if (bookStock.book_count == 0) { %>
+                    <a href="javascript:void(0)" class="btn btn-danger" data-toggle="modal" data-target="#procurementModal">申请采购</a>
+                    <% }else{ %>
+                    <% if (bookStock.book_stock == 0) { %>
+                    <a href="javascript:void(0)" class="btn btn-secondary disabled">已借完</a>
+                    <% }else{ %>
+                    <a href="javascript:void(0)" class="btn btn-danger" id="bookLend" >我要借阅</a>
+                    <% } %>
+                    <% } %>
+                <% } %>
+
+
+            </div>
+
+            <% if (item == 2) { %>
+                <div class="book-history share-history pull-right">
+                    <h3>分享历史</h3>
+                    <ul class="book-history-list">
+                        <% if(shareList.length){ %>
+                            <% shareList.forEach(function(list){ %>
+                            <li>
+                                <span><%=list.user_name%></span>说： <span><%=list.reason%></span>
+                                <div class="share-time text-right" ><%=list.share_tiem%></div>
+                            </li>
+                            <% }) %>
+                        <%  }else{ %>
+                            <li>暂时没有人分享。<a href="javascript:void(0)" data-toggle="modal" data-target="#shareModal">我要分享</a></li>
+                        <% } %>
+                    </ul>
+                </div>
+            <% }else if(item == 5){ %>
+                <% if (bookStock.book_count == 0) { %>
+                <div class="book-history pull-right">
+                    <h3>温馨提醒</h3>
+                    <div class="book-prompt text-danger">此图书目前没有库存，您可以采购此图书。 </div>
+                </div>
+                <% }else{ %>
+                <div class="book-history pull-right">
+                    <h3>温馨提醒</h3>
+                    <div class="book-prompt text-danger">此图书目前有 <strong><%=bookStock.book_count%></strong> 本库存 </div>
+                </div>
+                <% } %>
+            <% }else{ %>
+                <% if (bookStock.book_count == 0) { %>
+                <div class="book-history pull-right">
+                    <h3>温馨提醒</h3>
+                    <div class="book-prompt text-danger">此图书不在图书馆里，如需借阅，可以 <a href="javascript:void(0)" data-toggle="modal" data-target="#procurementModal">申请采购</a> </div>
+                </div>
+                <% }else{ %>
+                <div class="book-history pull-right" >
+                    <h3>借阅历史</h3>
+                    <ul class="book-history-list">
+                        <% if(lendHistory.length){ %>
+                        <% lendHistory.forEach(function(list){ %>
+                        <li>借阅人：<span><%=list.user_name%></span>借阅时间：<span><%=list.lend_time%></span></li>
+                        <% }) %>
+                        <%  }else{ %>
+                        <li>暂时没有人借阅过。</li>
+                        <% } %>
+
+
+                    </ul>
+                </div>
+                <% } %>
+            <% } %>
+
+
+        </div>
+    </section>
+    <section>
+        <div class="clearfix details-main">
+            <div class="book-cont">
+                <h2 class="title">内容简介</h2>
+                <div class="details-main-cont">
+                    <%=bookData.summary%>
+                </div>
+            </div>
+            <div class="book-other">
+                <h2  class="title">作者简介</h2>
+                <div class="details-main-cont">
+                    <%=bookData.author_intro%>
+                </div>
+            </div>
+        </div>
+    </section>
+    <% include footer %>
+
+    <!-- 采购模态框 -->
+    <div class="modal fade" id="procurementModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">申请采购</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-3 form-control-label text-right">采购数量：</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="bookCount" placeholder="输入数量">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-danger" id="applySubmit">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 分享模态框 -->
+    <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">我要分享</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="shareCont" class="col-sm-3 form-control-label text-right">分享理由：</label>
+                            <div class="col-sm-8">
+                                <textarea class="form-control" style="height: 200px;" id="shareCont" placeholder="请输入分享理由，不超过200字" maxlength="200" ></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-danger" id="shareSubmit">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 入库模态框 -->
+    <div class="modal fade" id="iventoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">图书入库</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-3 form-control-label text-right">添加数量：</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="iCount"  placeholder="输入数量">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-danger" id="iventorySubmit">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/lib/jquery/jquery.min.js"></script>
+    <script src="/lib/bootstrap/bootstrap.min.js"></script>
+    <script src="/js/components.js"></script>
+    <script src="/js/logout.js"></script>
+    <script src="/js/details.js"></script>
+    <script src="/js/tether.js"></script>
+</body>
+</html>
